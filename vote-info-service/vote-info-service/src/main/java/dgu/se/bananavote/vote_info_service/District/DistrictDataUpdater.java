@@ -61,6 +61,7 @@ public class DistrictDataUpdater {
                     District district = new District();
                     district.setSdName(item.path("sdName").asText());
                     district.setWiwName(item.path("wiwName").asText());
+                    district.setSggName(item.path("sggName").asText());
                     districtService.saveDistrict(district);
                 }
 
