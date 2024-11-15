@@ -15,4 +15,36 @@ public class Career {
     @Column
     private String career;  // 경력 내용
     // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCnddtId() {
+        return cnddtId;
+    }
+
+    public void setCnddtId(String cnddtId) {
+        this.cnddtId = cnddtId;
+    }
+
+    public int getCareerOrder() {
+        return careerOrder;
+    }
+
+    public void setCareerOrder(int careerOrder) {
+        this.careerOrder = careerOrder;
+    }
+
+    public String getCareer() {
+        return career;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
 }

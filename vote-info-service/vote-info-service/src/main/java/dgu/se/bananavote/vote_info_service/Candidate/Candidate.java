@@ -12,7 +12,7 @@ public class Candidate {
     @Column
     private String cnddtId;  // 후보자 Id
     @Column
-    private String sgjdId;  // 선거정당 Id
+    private String sgId;  // 선거 Id
     @Column
     private String jdName;  // 정당 이름
     @Column
@@ -20,4 +20,53 @@ public class Candidate {
     @Column
     private String name;  // 후보자 이름
     // Getters and Setters
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCnddtId() {
+        return cnddtId;
+    }
+
+    public void setCnddtId(String cnddtId) {
+        this.cnddtId = cnddtId;
+    }
+
+    public String getSgId() {
+        return sgId;
+    }
+
+    public void setSgId(String sgId) {
+        this.sgId = sgId;
+    }
+
+    public String getJdName() {
+        return jdName;
+    }
+
+    public void setJdName(String jdName) {
+        this.jdName = jdName;
+    }
+
+    public String getWiwName() {
+        return wiwName;
+    }
+
+    public void setWiwName(String wiwName) {
+        this.wiwName = wiwName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
