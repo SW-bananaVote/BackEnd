@@ -21,7 +21,7 @@ public class PartyDataUpdater {
     private String serviceKey;
 
     private final String API_URL_TEMPLATE = "https://apis.data.go.kr/9760000/CommonCodeService/getCommonPartyCodeList" +
-            "?serviceKey=%s&pageNo=%d&numOfRows=100&sgId=20240410";
+            "?resultType=json&serviceKey=%s&pageNo=%d&numOfRows=100&sgId=20240410";
 
     @Autowired
     public PartyDataUpdater(PartyService partyService,
@@ -59,8 +59,8 @@ public class PartyDataUpdater {
                 // 정당 데이터 저장
                 for (JsonNode item : items) {
                     Party party = new Party();
-                    party.setPartyId(item.path("partyId").asText());
-                    party.setPartyName(item.path("partyName").asText());
+                    party.setPartyId(item.path("pOrder").asText());
+                    party.setPartyName(item.path("jdName").asText());
 
                     partyService.saveParty(party); // 데이터베이스에 저장
                 }

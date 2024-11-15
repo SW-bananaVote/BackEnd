@@ -17,4 +17,44 @@ public class Promise {
     @Column
     private String promiseContent;  // 공약 내용
     // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCnddtId() {
+        return cnddtId;
+    }
+
+    public void setCnddtId(String cnddtId) {
+        this.cnddtId = cnddtId;
+    }
+
+    public int getPromiseOrder() {
+        return promiseOrder;
+    }
+
+    public void setPromiseOrder(int promiseOrder) {
+        this.promiseOrder = promiseOrder;
+    }
+
+    public String getPromiseTitle() {
+        return promiseTitle;
+    }
+
+    public void setPromiseTitle(String promiseTitle) {
+        this.promiseTitle = promiseTitle;
+    }
+
+    public String getPromiseContent() {
+        return promiseContent;
+    }
+
+    public void setPromiseContent(String promiseContent) {
+        this.promiseContent = promiseContent;
+    }
 }
