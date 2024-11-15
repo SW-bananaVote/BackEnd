@@ -6,7 +6,7 @@
 
 - **IDE**: IntelliJ 2024.1.4  
 - **Project**: Maven  
-- **Java**: 17  
+- **Java**: oracle open jdk 17.0.10
 - **Spring Boot**: 3.3.5  
 
 의존성은 2024-10-30 기준으로 최신 버전 사용.

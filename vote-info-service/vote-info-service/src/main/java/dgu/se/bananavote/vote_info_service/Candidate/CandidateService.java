@@ -18,4 +18,7 @@ public class CandidateService {
     public List<Candidate> getCandidate() { return candidateRepository.findAll(); }
     public Candidate getCandidateById(int id) { return candidateRepository.findById(id).orElse(null); }
     public List<Candidate> getCandidateByJdName(String jdName) { return candidateRepository.findByJdName(jdName); }
+
+    public void saveCandidate(Candidate candidate) {
+    }
 }
