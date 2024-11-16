@@ -18,4 +18,8 @@ public class PolicyService {
     public List<Policy> getPolicy() { return policyRepository.findAll(); }
     public Optional<Policy> getPolicyById(int id) { return policyRepository.findById(id); }
     public List<Policy> getPolicyByJdName(String jdName) { return policyRepository.findByJdName(jdName); }
+
+    public Policy savePolicy(Policy policy) {
+        return policyRepository.save(policy);
+    }
 }

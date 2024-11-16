@@ -12,6 +12,12 @@ public class Policy {
     private String jdName;  // 정당 이름
     @Column
     private int prmsOrder;  // 정책 번호
+    @Column
+    private String prmsTitle;
+    @Column(length = 3000)
+    private String prmsCont;
+
+
     // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -19,4 +25,16 @@ public class Policy {
     public void setJdName(String jdName) { this.jdName = jdName; }
     public int getPrmsOrder() { return prmsOrder; }
     public void setPrmsOrder(int prmsOrder) { this.prmsOrder = prmsOrder; }
+
+    public void setPrmsTitle(String prmsTitle) {
+        this.prmsTitle = prmsTitle;
+    }
+
+    public void setPrmsCont(String prmsCont) {
+        this.prmsCont = prmsCont;
+    }
+
+    public String getPrmsCont() {
+        return prmsCont;
+    }
 }

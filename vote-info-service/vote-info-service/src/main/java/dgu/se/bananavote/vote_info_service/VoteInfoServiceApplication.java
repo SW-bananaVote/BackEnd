@@ -5,6 +5,7 @@ import dgu.se.bananavote.vote_info_service.Candidate.PromiseDataUpdater;
 import dgu.se.bananavote.vote_info_service.News.NewsCrawler;
 import dgu.se.bananavote.vote_info_service.District.DistrictDataUpdater;
 import dgu.se.bananavote.vote_info_service.Party.PartyDataUpdater;
+import dgu.se.bananavote.vote_info_service.Policy.PolicyUpdater;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -18,16 +19,19 @@ public class VoteInfoServiceApplication {
 
 		// NewsCrawler 빈을 가져와서 크롤링 메서드 호출
 //		testNewsCrawler(context);
-		testPartyDataUpdater(context);
+//		testPartyDataUpdater(context);
 
 		// DistrictDataUpdater 빈을 가져와서 API 데이터 업데이트 테스트 호출
-		testDistrictDataUpdater(context);
+	//	testDistrictDataUpdater(context);
 
 		//
-		testCandidateDataUpdater(context);
+//		testCandidateDataUpdater(context);
 
 		//
-		testPromiseDataUpdater(context);
+//		testPromiseDataUpdater(context);
+
+		//
+//		testPolicyUpdater(context);
 	}
 
 	private static void testNewsCrawler(ApplicationContext context) {
@@ -50,6 +54,18 @@ public class VoteInfoServiceApplication {
 			e.printStackTrace();
 		}
 	}
+
+	private static void testPolicyUpdater(ApplicationContext context) {
+		PolicyUpdater districtDataUpdater = context.getBean(PolicyUpdater.class);
+		try {
+			districtDataUpdater.updatePolicies();  // API 데이터 업데이트 테스트 실행
+			System.out.println("District 데이터 업데이트 완료");
+		} catch (Exception e) {
+			System.out.println("데이터 업데이트 도중 오류 발생: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 
 	private static void testCandidateDataUpdater(ApplicationContext context) {
 		CandidateDataUpdater candidateDataUpdater = context.getBean(CandidateDataUpdater.class);
