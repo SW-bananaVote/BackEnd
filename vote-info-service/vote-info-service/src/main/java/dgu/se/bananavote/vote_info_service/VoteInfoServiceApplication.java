@@ -1,10 +1,9 @@
 package dgu.se.bananavote.vote_info_service;
 
-import dgu.se.bananavote.vote_info_service.Candidate.CandidateDataUpdater;
-import dgu.se.bananavote.vote_info_service.Candidate.PromiseDataUpdater;
+import dgu.se.bananavote.vote_info_service.candidate.CandidateDataUpdater;
 import dgu.se.bananavote.vote_info_service.News.NewsCrawler;
-import dgu.se.bananavote.vote_info_service.District.DistrictDataUpdater;
-import dgu.se.bananavote.vote_info_service.Party.PartyDataUpdater;
+import dgu.se.bananavote.vote_info_service.district.DistrictDataUpdater;
+import dgu.se.bananavote.vote_info_service.party.PartyDataUpdater;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -18,16 +17,16 @@ public class VoteInfoServiceApplication {
 
 		// NewsCrawler 빈을 가져와서 크롤링 메서드 호출
 //		testNewsCrawler(context);
-		testPartyDataUpdater(context);
+//		testPartyDataUpdater(context);
 
 		// DistrictDataUpdater 빈을 가져와서 API 데이터 업데이트 테스트 호출
-		testDistrictDataUpdater(context);
+//		testDistrictDataUpdater(context);
 
 		//
-		testCandidateDataUpdater(context);
+//		testCandidateDataUpdater(context);
 
 		//
-		testPromiseDataUpdater(context);
+//		testPromiseDataUpdater(context);
 	}
 
 	private static void testNewsCrawler(ApplicationContext context) {

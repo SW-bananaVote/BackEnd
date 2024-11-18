@@ -9,7 +9,7 @@ public class Interest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
+    private String userId;
     private String name;
 
     // user엔티티의 userId를 참조가능, INSERT와UPDATE는 불가
@@ -18,5 +18,5 @@ public class Interest {
     private User user;
 
     // Getters and Setters 적는 칸
-    public void setUserId(int userId) { this.userId = userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 }

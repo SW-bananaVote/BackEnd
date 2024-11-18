@@ -26,14 +26,14 @@ public class UserController {
     }
     // 관심사 등록
     @PostMapping("/{userId}/interests")
-    public ResponseEntity<Interest> addInterest(@PathVariable int userId, @RequestBody Interest interest) {
+    public ResponseEntity<Interest> addInterest(@PathVariable String userId, @RequestBody Interest interest) {
         interest.setUserId(userId);  // userId 설정
         Interest savedInterest = userService.addInterest(interest);
         return new ResponseEntity<>(savedInterest, HttpStatus.CREATED);
     }
     // Interest 조회하는 기능(UserId 필요로함)
     @GetMapping("/{userId}/interests")
-    public ResponseEntity<List<Interest>> getInterestsByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<Interest>> getInterestsByUserId(@PathVariable String userId) {
         List<Interest> interests = userService.getInterestsByUserId(userId);
         // 만약 Interest가 비여있다면 없다고 리턴
         if (interests.isEmpty()) {

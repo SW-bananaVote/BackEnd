@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: dgu.se.bananavote.vote_info_service.VoteInfoServiceApplicati
+ on
+
