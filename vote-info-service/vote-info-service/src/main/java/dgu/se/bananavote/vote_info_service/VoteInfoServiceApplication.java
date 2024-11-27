@@ -1,7 +1,6 @@
 package dgu.se.bananavote.vote_info_service;
 
 import dgu.se.bananavote.vote_info_service.Candidate.CandidateDataUpdater;
-import dgu.se.bananavote.vote_info_service.Candidate.PromiseDataUpdater;
 import dgu.se.bananavote.vote_info_service.News.NewsCrawler;
 import dgu.se.bananavote.vote_info_service.District.DistrictDataUpdater;
 import dgu.se.bananavote.vote_info_service.Party.PartyDataUpdater;

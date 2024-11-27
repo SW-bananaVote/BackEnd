@@ -11,8 +11,6 @@ public class CandidateService {
     @Autowired
     private CandidateRepository candidateRepository;
     @Autowired
-    private PromiseRepository promiseRepository;
-    @Autowired
     private CareerRepository careerRepository;
 
     // 모든 후보자를 가져옵니다.
