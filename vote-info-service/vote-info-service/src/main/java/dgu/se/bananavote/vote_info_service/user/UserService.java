@@ -17,7 +17,7 @@ public class UserService {
 
     public Optional<User> getUserByUserId(String userId) { return userRepository.findByUserId(userId); }
     public User registerUser(User user) { return userRepository.save(user); }
-    public List<Interest> getInterestsByUserId(int userId) { return interestRepository.findByUserId(userId);}
+    public List<Interest> getInterestsByUserId(String userId) { return interestRepository.findByUserId(userId);}
     public Interest addInterest(Interest interest) { return interestRepository.save(interest); }
 
 }

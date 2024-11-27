@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface InterestRepository extends JpaRepository<Interest, Integer> {
-    List<Interest> findByUserId(int userId);
+    List<Interest> findByUserId(String userId);
     List<Interest> findAll();
 }

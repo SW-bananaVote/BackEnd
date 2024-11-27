@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -19,6 +19,10 @@ public class UserController {
     public User register(@RequestBody User user) {
         return userService.registerUser(user);
     }
+//    @GetMapping("login")
+//    public ResponseEntity<User> login(@RequestParam String nickname, @RequestParam String password) {
+//
+//    }
     // user엔티티 반환 기능
     @GetMapping("/{userId}")
     public Optional<User> getUser(@PathVariable String userId) {
@@ -26,14 +30,14 @@ public class UserController {
     }
     // 관심사 등록
     @PostMapping("/{userId}/interests")
-    public ResponseEntity<Interest> addInterest(@PathVariable int userId, @RequestBody Interest interest) {
+    public ResponseEntity<Interest> addInterest(@PathVariable String userId, @RequestBody Interest interest) {
         interest.setUserId(userId);  // userId 설정
         Interest savedInterest = userService.addInterest(interest);
         return new ResponseEntity<>(savedInterest, HttpStatus.CREATED);
     }
     // Interest 조회하는 기능(UserId 필요로함)
     @GetMapping("/{userId}/interests")
-    public ResponseEntity<List<Interest>> getInterestsByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<Interest>> getInterestsByUserId(@PathVariable String userId) {
         List<Interest> interests = userService.getInterestsByUserId(userId);
         // 만약 Interest가 비여있다면 없다고 리턴
         if (interests.isEmpty()) {
