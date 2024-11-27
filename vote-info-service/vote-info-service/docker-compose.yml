@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${SPRING_DATASOURCE_USERNAME}
+      MYSQL_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./output:/app/output
+      - mysql_data:/var/lib/mysql
+      - ./init_districts.sql:/docker-entrypoint-initdb.d/init_districts.sql
+    networks:
+      - vote-net
+
+  vote-info-service:
+    build:
+      context: .
+    container_name: vote-info-service-container
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      API_SERVICE_KEY: ${API_SERVICE_KEY}
+      SPRING_SECURITY_USER_NAME: ${SPRING_SECURITY_USER_NAME}
+      SPRING_SECURITY_USER_PASSWORD: ${SPRING_SECURITY_USER_PASSWORD}
+    ports:
+      - "8080:8080"
+    networks:
+      - vote-net
+
+volumes:
+  mysql_data:
+
+networks:
+  vote-net:
+    driver: bridge
