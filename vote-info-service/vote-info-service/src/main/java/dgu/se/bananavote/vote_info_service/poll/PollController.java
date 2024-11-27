@@ -1,6 +1,5 @@
 package dgu.se.bananavote.vote_info_service.poll;
 
-import dgu.se.bananavote.vote_info_service.candidate.Candidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
