@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -41,27 +42,28 @@ public class NewsController {
         return newsService.getNewsById(id);
     }
 
-    @GetMapping("/date/{date}") // 43.235.12.140/news/date/20241123
+    @GetMapping("/date/{date}")
     public List<News> getNewsByUploadDate(@PathVariable String date) {
         try {
             // 입력된 날짜를 LocalDate로 변환
             LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-            // 시작 시간과 종료 시간 생성
+            // 시작 시간과 종료 시간 생성 (UTC 기준)
             ZonedDateTime startOfDay = localDate.atStartOfDay(ZoneId.of("UTC"));
             ZonedDateTime endOfDay = localDate.atTime(LocalTime.MAX).atZone(ZoneId.of("UTC"));
 
-            // ISO 8601 형식의 문자열로 변환
-            String startDateTime = startOfDay.toString(); // "2024-11-25T00:00:00Z"
-            String endDateTime = endOfDay.toString();    // "2024-11-25T23:59:59.999Z"
+            // ZonedDateTime -> Timestamp 변환
+            Timestamp startTimestamp = Timestamp.from(startOfDay.toInstant());
+            Timestamp endTimestamp = Timestamp.from(endOfDay.toInstant());
 
             // 서비스 호출
-            return newsService.getNewsByUploadDateRange(startDateTime, endDateTime);
+            return newsService.getNewsByUploadDateRange(startTimestamp, endTimestamp);
         } catch (DateTimeParseException e) {
-            // 잘못된 날짜 형식 처리
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format. Use 'yyyy-MM-dd'");
         }
     }
+
+
 
 
     @GetMapping("/headline")

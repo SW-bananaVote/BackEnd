@@ -18,5 +18,5 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     boolean existsByTitleAndUploadDate(String title, Timestamp uploadDate);
     boolean existsByTitle(String title);
 
-    List<News> findAllByUploadDateBetween(String startDateTime, String endDateTime);
+    List<News> findAllByUploadDateBetween(Timestamp startDate, Timestamp endDate);
 }

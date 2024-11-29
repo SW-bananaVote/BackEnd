@@ -6,6 +6,10 @@ package dgu.se.bananavote.vote_info_service.news;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +24,21 @@ public class NewsService {
         this.newsRepository = newsRepository;
     }
 
+    public Timestamp convertStringToTimestamp(String dateString) {
+        LocalDateTime localDateTime = LocalDateTime.parse(dateString, DateTimeFormatter.ISO_DATE_TIME);
+        return Timestamp.valueOf(localDateTime);
+    }
+
+
     public List<News> getNews() {
         // 뉴스탭에서는 uploadDate로만 필터링을 진행함.
         // 따라서 getNews()에서 필터링을 진행할 필요없음
         return newsRepository.findAll();
     }
 
-    public List<News> getNewsByUploadDate(Timestamp uploadDate) {
-        return newsRepository.findByUploadDate(uploadDate);
-    }
+//    public List<News> getNewsByUploadDate(Timestamp uploadDate) {
+//        return newsRepository.findByUploadDate(uploadDate);
+//    }
 
     public Optional<News> getNewsById(Integer id) {
         return newsRepository.findById(id);
@@ -63,7 +73,8 @@ public class NewsService {
         return newsRepository.existsByTitle(title);
     }
 
-    public List<News> getNewsByUploadDateRange(String startDateTime, String endDateTime) {
+    public List<News> getNewsByUploadDateRange(Timestamp startDateTime, Timestamp endDateTime) {
         return newsRepository.findAllByUploadDateBetween(startDateTime, endDateTime);
     }
+
 }
