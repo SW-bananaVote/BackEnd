@@ -6,9 +6,9 @@ package dgu.se.bananavote.vote_info_service.news;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -36,10 +36,6 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
-//    public List<News> getNewsByUploadDate(Timestamp uploadDate) {
-//        return newsRepository.findByUploadDate(uploadDate);
-//    }
-
     public Optional<News> getNewsById(Integer id) {
         return newsRepository.findById(id);
     }
@@ -47,15 +43,21 @@ public class NewsService {
 
 
     public List<News> getHeadlineNews(Timestamp yesterday) {
-        List<News> temp = newsRepository.findByUploadDate(yesterday);
-        // 조회수(view) 필드를 기준으로 내림차순 정렬하고, 상위 두 개의 뉴스만 추출
-        List<News> headlineList = temp.stream()
-                .sorted(Comparator.comparingInt(News::getView).reversed()) // 조회수를 기준으로 내림차순 정렬
-                .limit(2) // 상위 두 개의 뉴스만 선택
-                .collect(Collectors.toList());
+        // 어제의 시작 시간과 종료 시간 계산
+        LocalDate localDate = yesterday.toLocalDateTime().toLocalDate();
+        Timestamp startOfDay = Timestamp.valueOf(localDate.atStartOfDay());
+        Timestamp endOfDay = Timestamp.valueOf(localDate.atTime(LocalTime.MAX));
 
-        return headlineList;
+        // 어제 날짜의 뉴스 데이터를 범위로 조회
+        List<News> temp = newsRepository.findAllByUploadDateBetween(startOfDay, endOfDay);
+
+        // 조회수(view) 필드를 기준으로 내림차순 정렬하고, 상위 두 개의 뉴스만 추출
+        return temp.stream()
+                .sorted(Comparator.comparingInt(News::getView).reversed())
+                .limit(2)
+                .collect(Collectors.toList());
     }
+
 
     public News saveNews(News news) {
         return newsRepository.save(news);

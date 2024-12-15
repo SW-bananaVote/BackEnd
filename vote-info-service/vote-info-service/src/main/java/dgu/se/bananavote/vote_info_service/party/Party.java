@@ -24,10 +24,6 @@ public class Party {
         this.id = id;
     }
 
-    public String getPartyId() {
-        return partyId;
-    }
-
     public void setPartyId(String partyId) {
         this.partyId = partyId;
     }

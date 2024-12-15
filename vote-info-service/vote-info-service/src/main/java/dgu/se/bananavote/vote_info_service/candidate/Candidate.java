@@ -18,6 +18,8 @@ public class Candidate {
     @Column
     private String jdName;  // 정당 이름
     @Column
+    private String sdName; // 상위 시도명
+    @Column
     private String wiwName;  // 구시군명
     @Column
     private String name;  // 후보자 이름
@@ -67,6 +69,15 @@ public class Candidate {
 
     public void setJdName(String jdName) {
         this.jdName = jdName;
+    }
+
+    // Getter와 Setter 추가
+    public String getSdName() {
+        return sdName;
+    }
+
+    public void setSdName(String sdName) {
+        this.sdName = sdName;
     }
 
     public String getWiwName() {

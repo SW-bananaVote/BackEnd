@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/candidate")
@@ -13,26 +14,52 @@ public class CandidateController {
     private CandidateService candidateService;
 
     @GetMapping
+    public List<CandidateResponse> getCandidatePartly() {
+        // 조회할 정당 이름 목록 정의
+        List<String> partyNames = List.of("더불어민주당", "국민의힘", "녹색정의당");
+
+        // Service 호출 및 결과 반환
+        return candidateService.getCandidatesByPartyNames(partyNames);
+    }
+
+    @GetMapping("all")
     public List<CandidateResponse> getAllCandidates() {
-        // Service를 호출하여 응답 반환
         return candidateService.getAllCandidatesWithCareers();
     }
 
-//
-//    @GetMapping
-//    public List<Candidate> getCandidate() { return candidateService.getCandidate(); }
     @GetMapping("/{id}")
-    public Candidate getCandidateById(@PathVariable int id) { return candidateService.getCandidateById(id); }
+    public CandidateResponse getCandidateById(@PathVariable int id) {
+        Candidate candidate = candidateService.getCandidateById(id);
+        if (candidate == null) {
+            throw new IllegalArgumentException("Candidate not found with ID: " + id);
+        }
+        List<Career> careers = candidateService.getCareersByCnddtId(candidate.getCnddtId());
+        return new CandidateResponse(candidate, careers);
+    }
+
     @GetMapping("/jdName/{jdName}")
-    public List<Candidate> getCandidateByJdName(@PathVariable String jdName) { return candidateService.getCandidateByJdName(jdName); }
+    public List<CandidateResponse> getCandidateByJdName(@PathVariable String jdName) {
+        List<Candidate> candidates = candidateService.getCandidateByJdName(jdName);
+        return candidates.stream()
+                .map(candidate -> {
+                    List<Career> careers = candidateService.getCareersByCnddtId(candidate.getCnddtId());
+                    return new CandidateResponse(candidate, careers);
+                })
+                .collect(Collectors.toList());
+    }
 
     @GetMapping("/filter")
-    public List<Candidate> filterCandidates(
-            @RequestParam(required = false) String wiwName, // 선거구 이름 (optional)
-            @RequestParam(required = false) String jdName, // 정당 이름 (optional)
-            @RequestParam(required = false) String name    // 후보자 이름 (optional)
-    ) {
-        // 필터 조건에 맞는 후보자 반환
-        return candidateService.filterCandidates(wiwName, jdName, name);
+    public List<CandidateResponse> filterCandidates(
+            @RequestParam(required = false) String wiwName,
+            @RequestParam(required = false) String jdName,
+            @RequestParam(required = false) String name) {
+        List<Candidate> candidates = candidateService.filterCandidates(wiwName, jdName, name);
+        return candidates.stream()
+                .map(candidate -> {
+                    List<Career> careers = candidateService.getCareersByCnddtId(candidate.getCnddtId());
+                    return new CandidateResponse(candidate, careers);
+                })
+                .collect(Collectors.toList());
     }
+
 }

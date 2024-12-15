@@ -36,9 +36,6 @@ public class Policy {
         this.prmsCont = prmsCont;
     }
 
-    public String getPrmsCont() {
-        return prmsCont;
-    }
     @Override
     public String toString() {
         return "Policy{" +

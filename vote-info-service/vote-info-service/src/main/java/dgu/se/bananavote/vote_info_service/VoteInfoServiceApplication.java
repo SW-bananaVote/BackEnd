@@ -39,12 +39,12 @@ public class VoteInfoServiceApplication {
 
 
 //			// Execute the updateDistrictData method
-			partyDataUpdater.updatePartyData();
-			policyDataUpdater.updatePolicyData();
-			districtDataUpdater.updateDistrictData();
-			pollDataUpdater.updatePollData();
-			candidateDataUpdater.updateCandidateData();
-			newsCrawler.crawlAndSaveNews();
+//			partyDataUpdater.updatePartyData();
+//			policyDataUpdater.updatePolicyData();
+//			districtDataUpdater.updateDistrictData();
+//			pollDataUpdater.updatePollData();
+//			candidateDataUpdater.updateCandidateData();
+//			newsCrawler.crawlAndSaveNews();
 
 			try {
 				// 테스트 요청 생성

@@ -63,5 +63,4 @@ public class News {
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
 
     public int getView() { return view; }
-    public void setView(int view) { this.view = view; }
 }

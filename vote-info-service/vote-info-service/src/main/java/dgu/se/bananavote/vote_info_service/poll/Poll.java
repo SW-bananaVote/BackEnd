@@ -52,10 +52,6 @@ public class Poll {
         this.sgId = sgId;
     }
 
-    public String getPsName() {
-        return psName;
-    }
-
     public void setPsName(String psName) {
         this.psName = psName;
     }
@@ -76,32 +72,16 @@ public class Poll {
         this.wiwName = wiwName;
     }
 
-    public String getEmdName() {
-        return emdName;
-    }
-
     public void setEmdName(String emdName) {
         this.emdName = emdName;
-    }
-
-    public String getPlaceName() {
-        return placeName;
     }
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
 
-    public String getAddr() {
-        return addr;
-    }
-
     public void setAddr(String addr) {
         this.addr = addr;
-    }
-
-    public String getFloor() {
-        return floor;
     }
 
     public void setFloor(String floor) {

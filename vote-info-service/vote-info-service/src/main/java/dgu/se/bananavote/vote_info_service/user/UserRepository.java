@@ -9,5 +9,12 @@ public interface UserRepository extends JpaRepository<User, String> {
     // save(entity)는 JPA에서 자동 제공
     Optional<User> findByUserId(String userId);
     List<User> findAll();
+    boolean existsById(String userId);
+
+    Optional<User> findByEmail(String email);
+    boolean existsByUserIdAndEmail(String userId, String email);
+    Optional<User> findByUserIdAndUserToken_Token(String userId, String token);
+
+
 }
 

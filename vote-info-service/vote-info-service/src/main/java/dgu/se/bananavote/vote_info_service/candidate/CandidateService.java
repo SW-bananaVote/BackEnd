@@ -75,4 +75,21 @@ public class CandidateService {
 
     public void flush() {
     }
+
+    public List<Career> getCareersByCnddtId(String cnddtId) {
+        return careerRepository.findByCnddtId(cnddtId);
+    }
+
+    public List<CandidateResponse> getCandidatesByPartyNames(List<String> partyNames) {
+        // 특정 정당 이름들로 후보자 조회
+        List<Candidate> candidates = candidateRepository.findByJdNameIn(partyNames);
+
+        // CandidateResponse로 변환
+        return candidates.stream()
+                .map(candidate -> {
+                    List<Career> careers = careerRepository.findByCnddtId(candidate.getCnddtId());
+                    return new CandidateResponse(candidate, careers);
+                })
+                .collect(Collectors.toList());
+    }
 }

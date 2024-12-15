@@ -7,6 +7,7 @@ public class CandidateResponse {
     private String cnddtId;
     private String sgId;
     private String jdName;
+    private String sdName; // 상위 시도명
     private String wiwName;
     private String name;
     private String career1; // 첫 번째 경력
@@ -18,6 +19,7 @@ public class CandidateResponse {
         this.cnddtId = candidate.getCnddtId();
         this.sgId = candidate.getSgId();
         this.jdName = candidate.getJdName();
+        this.sdName = candidate.getSdName();
         this.wiwName = candidate.getWiwName();
         this.name = candidate.getName();
 

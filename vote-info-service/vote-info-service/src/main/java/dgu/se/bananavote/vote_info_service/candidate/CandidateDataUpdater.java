@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dgu.se.bananavote.vote_info_service.district.District;
 import dgu.se.bananavote.vote_info_service.district.DistrictService;
+import dgu.se.bananavote.vote_info_service.party.Party;
 import dgu.se.bananavote.vote_info_service.party.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,20 +61,27 @@ public class CandidateDataUpdater {
             return;
         }
 
-        List<String> parties = List.of("더불어민주당", "국민의힘", "녹색정의당");
+        // 모든 정당 데이터를 PartyService에서 가져옴
+        List<Party> parties = partyService.getAllParties();
+        if (parties.isEmpty()) {
+            System.err.println("No parties found. Skipping candidate data update.");
+            return;
+        }
 
         for (District district : districts) {
             String encodedSggName = URLEncoder.encode(district.getSggName(), StandardCharsets.UTF_8);
             String encodedSdName = URLEncoder.encode(district.getSdName(), StandardCharsets.UTF_8);
 
-            for (String party : parties) {
-                processPartyCandidates(encodedSggName, encodedSdName, party);
+            for (Party party : parties) {
+                String encodedJdName = URLEncoder.encode(party.getPartyName(), StandardCharsets.UTF_8);
+                processPartyCandidates(encodedSggName, encodedSdName, encodedJdName);
             }
         }
     }
 
+
     private void processPartyCandidates(String encodedSggName, String encodedSdName, String party) {
-        String encodedJdName = URLEncoder.encode(party, StandardCharsets.UTF_8);
+        String encodedJdName = party;
 
         int pageNo = 1;
         int totalPages = 1;
@@ -146,6 +154,17 @@ public class CandidateDataUpdater {
             candidate.setWiwName(item.path("wiwName").asText());
             candidate.setName(item.path("name").asText());
 
+            // wiwName에 대응되는 sdName 설정
+            String wiwName = candidate.getWiwName();
+            List<District> districts = districtService.getDistrictByWiwName(wiwName);
+
+            if (!districts.isEmpty()) {
+                // 첫 번째 District의 sdName 사용
+                candidate.setSdName(districts.get(0).getSdName());
+            } else {
+                System.err.println("No district found for wiwName: " + wiwName);
+            }
+
             candidateService.saveCandidate(candidate);
             System.out.println("Saved Candidate: " + candidate.getName());
         } else {
@@ -154,6 +173,7 @@ public class CandidateDataUpdater {
 
         processCandidateCareers(item, cnddtId);
     }
+
 
     private void processCandidateCareers(JsonNode item, String cnddtId) {
         int careerOrder = 1;

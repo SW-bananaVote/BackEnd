@@ -16,4 +16,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
     List<Candidate> findByWiwNameAndJdNameAndName(String wiwName, String jdName, String name); // 선거구, 정당, 이름으로 필터링
 
     boolean existsByCnddtId(String cnddtId);
+
+    List<Candidate> findByJdNameIn(List<String> partyNames);
 }

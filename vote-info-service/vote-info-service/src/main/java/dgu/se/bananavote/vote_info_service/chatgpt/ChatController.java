@@ -1,3 +1,5 @@
+// 김준수 작성
+
 package dgu.se.bananavote.vote_info_service.chatgpt;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/api/chat")
 public class ChatController {
 
-    @Value("${OPENAI_API_KEY}")
+    @Value("${openai.apiKey}")
     private String apiKey;
 
     @PostMapping
@@ -27,7 +29,7 @@ public class ChatController {
 
         // 요청 본문 생성
         Map<String, Object> requestBody = Map.of(
-                "model", "gpt-3.5-turbo",
+                "model", "gpt-4o",
                 "messages", new Object[]{
                         Map.of("role", "user", "content", message)
                 }
